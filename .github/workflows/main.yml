@@ -22,7 +22,7 @@ jobs:
       run: npm install
 
     - name: Run Tests
-      run: npm run test # Change this to your test command
+      run: npm run test:unit # Change this to your test command
 
     - name: Lint code
       run: npm run lint # Change this to your linting command
