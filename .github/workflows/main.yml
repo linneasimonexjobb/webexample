@@ -17,7 +17,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    timout-minute: 30 #job times out after 30 mins
+    timout-minutes: 30 #job times out after 30 mins
 
     steps:
     - name: Checkout code
