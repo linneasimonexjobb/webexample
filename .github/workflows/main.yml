@@ -4,10 +4,20 @@ on:
   push:
     branches:
       - main # Change this to your main branch name
+      - cicd_setup
+
+permissions:
+  actions: read # the workflow is read only
+
+# Ensures that only one workflow per branch/environment will be run
+concurrency:
+  group: ${{ github.head_ref || github.ref_name }} 
+  cancel-in-progress: true
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30 #job times out after 30 mins
 
     steps:
     - name: Checkout code
@@ -19,7 +29,7 @@ jobs:
         node-version: 18 # Change this to the desired Node.js version
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
     - name: Run Tests
       run: npm run test:unit && npm run test:coverage # Change this to your test command
