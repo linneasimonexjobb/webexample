@@ -3,7 +3,6 @@ name: mkdocs-ci
 on:
   push:
     branches:
-      - wiki
       - main
 
 permissions:
