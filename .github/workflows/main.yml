@@ -1,4 +1,4 @@
-name: Vue 3 CI
+name: vue-3-ci
 
 on:
   push:
@@ -58,8 +58,11 @@ jobs:
         path: dist
 
   if_merged:
+    needs: build
     if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30 #job times out after 30 mins
     steps:
-    - run: |
+    - name: Deploy
+      run: |
         echo The PR was merged
