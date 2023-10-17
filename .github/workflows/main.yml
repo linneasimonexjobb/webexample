@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main # Change this to your main branch name
-      - cicd_setup
+      - "dev/**"
 
 permissions:
   actions: read # the workflow is read only
@@ -22,6 +22,14 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
 
     - name: Setup Node.js
       uses: actions/setup-node@v3
