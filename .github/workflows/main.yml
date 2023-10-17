@@ -60,7 +60,8 @@ jobs:
   if_merged:
     needs: build
     if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30 #job times out after 30 mins
     steps:
     - name: Deploy
       run: |
