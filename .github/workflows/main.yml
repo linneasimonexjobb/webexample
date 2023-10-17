@@ -11,7 +11,7 @@ permissions:
 
 # Ensures that only one workflow per branch/environment will be run
 concurrency:
-  group: environment-${{ github.ref }}
+  group: ${{ github.head_ref || github.ref_name }} 
   cancel-in-progress: true
 
 jobs:
@@ -40,8 +40,8 @@ jobs:
     - name: Build
       run: npm run build # Change this to your build command
 
-    - name: Sleep for 3 minutes #test of concurrency
-      run: sleep 181s
+    - name: Sleep for 30 seconds #test of concurrency
+      run: sleep 30s
       shell: bash
 
     - name: Archive artifacts
