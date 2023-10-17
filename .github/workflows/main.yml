@@ -3,8 +3,7 @@ name: Vue 3 CI
 on:
   push:
     branches:
-      - main # Change this to your main branch name
-      - "dev/**"
+      - "dev/**" # Push can only be done to develepment branches
   pull_request:
     types:
       - closed
