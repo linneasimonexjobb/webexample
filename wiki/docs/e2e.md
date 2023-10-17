@@ -7,3 +7,4 @@ Here we define the e2e tests
 How to do playwright
 
 ### Playwright
+READ THE DOCS
