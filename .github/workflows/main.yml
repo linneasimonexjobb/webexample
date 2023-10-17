@@ -9,7 +9,7 @@ on:
 permissions:
   actions: read # the workflow is read only
 
-# Ensures that only one workflowrun per branch/environment will be run
+# Ensures that only one workflow per branch/environment will be run
 concurrency:
   group: environment-${{ github.ref }}
   cancel-in-progress: true
@@ -39,6 +39,10 @@ jobs:
 
     - name: Build
       run: npm run build # Change this to your build command
+
+    - name: Sleep for 3 minutes
+      run: sleep 180s
+      shell: bash
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
