@@ -27,6 +27,17 @@ theme:
       primary: teal
       accent: lime
 
+nav:
+  - Home: 'index.md'
+  - 'User Guide':
+    - 'Writing your docs': 'e2e.md'
+    - 'Styling your docs': 'styling-your-docs.md'
+  - MkDocs:
+    - 'Writing MkDocs': 'MkDocs/mkdocs-writing.md'
+    - 'CI/CD With MkDocs': 'MkDocs/mkdocs-ci.md'
+  - Project:
+    - 'License': 'license.md'
+    - 'Release Notes': 'release-notes.md'
 
 markdown_extensions:
   - pymdownx.highlight:
