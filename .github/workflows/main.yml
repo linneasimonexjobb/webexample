@@ -1,10 +1,13 @@
-name: Vue 3 CI/CD
+name: Vue 3 CI
 
 on:
   push:
     branches:
       - main # Change this to your main branch name
       - "dev/**"
+  pull_request:
+    types:
+      - closed
 
 permissions:
   actions: read # The workflow is read only
@@ -23,22 +26,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Cache dependencies for faster workflow
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: 18 # Change this to the desired Node.js version
 
+    # Cache dependencies for faster workflow
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+          path: ~/.npm # Can potentially create cache of /node_modules folder but could create conflicts
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
     - name: Run Tests
       run: npm run test:unit && npm run test:coverage # Change this to your test command
@@ -54,3 +57,10 @@ jobs:
       with:
         name: dist
         path: dist
+
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo The PR was merged
