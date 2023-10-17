@@ -29,7 +29,7 @@ jobs:
         node-version: 18 # Change this to the desired Node.js version
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
     - name: Run Tests
       run: npm run test:unit && npm run test:coverage # Change this to your test command
@@ -39,10 +39,6 @@ jobs:
 
     - name: Build
       run: npm run build # Change this to your build command
-
-    - name: Sleep for 30 seconds #test of concurrency
-      run: sleep 31s
-      shell: bash
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
