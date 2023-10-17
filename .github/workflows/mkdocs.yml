@@ -1,0 +1,31 @@
+name: mkdocs-ci
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          pip install mkdocs-material pillow cairosvg
+
+      - name: Build and Deploy MkDocs
+        run: |
+          cd wiki
+          mkdocs build
+          mkdocs gh-deploy --force
