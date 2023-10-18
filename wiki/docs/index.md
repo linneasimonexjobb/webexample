@@ -40,4 +40,4 @@ If you have any technical or non-technical requirements, it could declared here 
 | -----------     | ------------------------------------ |
 | Login user      | One may only authorize once  |
 | Delete message  | A user should be able to delete messages |
-| Logout          | a User should be able to logout from the website |
+| Logout          | a User should be able to logout from the site |
