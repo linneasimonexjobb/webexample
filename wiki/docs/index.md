@@ -10,6 +10,23 @@ Write where the different navigations take you in the wiki.
 
 In this wiki, we have configured the different tools of DevOps in each NavBar
 
+We recommend having a documentation tidy and easy to maintain. An example would be:
+
+```yaml
+project_root/
+│
+├── wiki/
+│   ├── index.md
+│   ├── Project
+│   │    ├── description.md
+│   │    │   
+│   └── ... (other top-level pages)
+│
+├── mkdocs.yml
+│
+└── site/ (auto-generated)
+```
+MkDocs only support two layers of nesting, so making use of md headers within each folder is crucial.
 ## Purpose of project
 Write down a few sentences what you are trying to achieve with the project. This helps with setting a goal and help others understand what the purpose is.
 

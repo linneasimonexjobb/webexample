@@ -23,14 +23,23 @@ To add headers and files, the `nav:` needs to be updated. Here you can see how t
 ```yaml
 nav:
   - Home: 'index.md'
-  - 'User Guide':
-    - 'Writing your docs': 'e2e.md'
-    - 'Styling your docs': 'styling-your-docs.md'
+  - Project: 
+    - 'Structure': 'Project/project.md'
+    - 'Test': 'Project/testing/test.md'
+    - Source:
+      - 'src': 'Project/src/src.md'
+      - 'components': "Project/src/components/components.md"
   - MkDocs:
     - 'Writing MkDocs': 'MkDocs/mkdocs-writing.md'
-  - Project:
-    - 'License': 'license.md'
-    - 'Release Notes': 'release-notes.md'
+    - 'CI/CD With MkDocs': 'MkDocs/mkdocs-ci.md'
+  - CI/CD:
+    - 'Contiuous integration': 'CI/ci.md'
+  - Git prehooks:
+    - 'prehooks': 'git/prehooks.md'
+  - GitHub issues and kanban board:
+    - Issues: 'github/issues.md'
+    - Kanban board: 'github/kanban.md'
+
 ```
 
 We recommend using folders to keep the md files organized. If the project contains many folders, a good rule of thumb is

@@ -4,11 +4,25 @@ on:
   push:
     branches:
       - main
+      - documentation
 
 permissions:
   contents: write
 
 jobs:
+
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+        config-file: 'mlc_config.json'
+        folder-path: 'wiki/'
+
+
   deploy:
     runs-on: ubuntu-latest
 
