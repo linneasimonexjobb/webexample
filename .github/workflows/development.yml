@@ -26,6 +26,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 18 # Change this to the desired Node.js version
+        cache: 'npm' #other way to cache?
 
     # Cache dependencies for faster workflow
     - name: Cache dependencies
