@@ -18,12 +18,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Cache Super Linter dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.super-linter
+          key: superlinter-ubuntu-${{ runner.os }}-${{ hashFiles('**/*.md') }}
+          restore-keys: |
+            superlinter-ubuntu-${{ runner.os }}-
+
       - name: Lint Markdown files
         uses: github/super-linter@v5
         env:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILTER_REGEX_INCLUDE: \.md$
-          VALIDATE_ALL_CODEBASE: False
 
   markdown-link-check:
     runs-on: ubuntu-latest
