@@ -14,7 +14,7 @@ pre-push: This hook is invoked before a push to a remote repository is executed.
 
 ## Pre-commit
 Git pre-commit hooks are scripts that run before the commit is created. They can be used to inspect the snapshot that is about to be committed and to ensure that it passes certain criteria.
-If the script exits with a non-zero status, the commit is aborted. Pre-commit hooks are useful for tasks such as checking for trailing whitespace, ensuring commit messages follow a certain 
+If the script exits with a non-zero status, the commit is aborted. Pre-commit hooks are useful for tasks such as checking for trailing whitespace, ensuring commit messages follow a certain
 pattern, or running tests before allowing a commit.
 
 To set up a Git pre-commit hook, follow these steps:
