@@ -10,7 +10,7 @@ The CI runs with the steps:
 
 | Steps     | Description                     |
 | -----------     | ------------------------------------ |
-| Lint      | Linting is used to verify that the code is properly structured, GitHub super-lint is used but can be changed to whatever the devs find appropriate  |
+| Lint      | Linting is used to verify that the code is properly structured, github super-lint is used but can be changed to whatever the devs find appropriate  |
 | Build  | The project should be built, here you may use cmake, npm build etc |
 | test         | Atleast basic unit test should be used in the project |
 

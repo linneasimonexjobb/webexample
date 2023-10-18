@@ -38,6 +38,7 @@ jobs:
 
 
   deploy:
+    needs: [super-linter, markdown-link-check] 
     runs-on: ubuntu-latest
 
     steps:
