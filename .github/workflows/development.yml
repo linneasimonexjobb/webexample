@@ -1,15 +1,12 @@
-name: vue-3-ci
+name: vue-3-ci-cd
 
 on:
   push:
-    branches:
-      - "dev/**" # Push can only be done to develepment branches
-  pull_request:
-    types:
-      - closed
+    branches-ignore:
+      - main
 
 permissions:
-  actions: read # The workflow is read only
+  contents: read # The workflow is read only
 
 # Ensures that only one workflow per branch/environment will be run
 concurrency:
@@ -57,12 +54,3 @@ jobs:
         name: dist
         path: dist
 
-  if_merged:
-    needs: build
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-22.04
-    timeout-minutes: 30 #job times out after 30 mins
-    steps:
-    - name: Deploy
-      run: |
-        echo The PR was merged
