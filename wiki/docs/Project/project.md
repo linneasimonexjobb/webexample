@@ -2,7 +2,6 @@
 
 This is an example project on how MkDocs could be set up to support knowledge sharing
 
-
 ## Folder structure
 
 ### src

@@ -1,4 +1,4 @@
-site_name: Vue test
+site_name: Example wiki
 theme:
   name: material
   features:
@@ -29,15 +29,16 @@ theme:
 
 nav:
   - Home: 'index.md'
-  - 'User Guide':
-    - 'Writing your docs': 'e2e.md'
-    - 'Styling your docs': 'styling-your-docs.md'
   - MkDocs:
     - 'Writing MkDocs': 'MkDocs/mkdocs-writing.md'
     - 'CI/CD With MkDocs': 'MkDocs/mkdocs-ci.md'
-  - Project:
-    - 'License': 'license.md'
-    - 'Release Notes': 'release-notes.md'
+  - Project: 
+    - 'Structure': 'Project/project.md'
+    - 'Test': 'Project/testing/test.md'
+    - Source:
+      - 'src': 'Project/src/src.md'
+  - CI:
+    - 'Contiuous integration': 'CI/ci.md'
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -55,3 +56,6 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+extra:
+  version:
+    provider: mike
