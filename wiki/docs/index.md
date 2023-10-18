@@ -4,7 +4,7 @@ Welcome to this example wiki. In here there are guides on how to set up a projec
 Everything done here is just an example and one may use the template, or alter things if you deem neccecary.
 
 This first version is made by the master students Simon and Linnéa at Linköping University.
-[Visit MkDocs Documentation](https://www.mkdocs.orge)
+
 
 ## Navigation
 Write where the different navigations take you in the wiki.
