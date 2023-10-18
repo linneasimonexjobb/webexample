@@ -2,9 +2,11 @@ name: mkdocs-ci
 
 on:
   push:
-    branches:
-      - main
-      - documentation
+    paths:
+      - 'wiki/'
+  pull_request:
+    paths:
+      - 'wiki/'
 
 permissions:
   contents: write
@@ -43,8 +45,8 @@ jobs:
         config-file: 'mlc_config.json'
         folder-path: 'wiki/'
 
-
   deploy:
+    if: github.event.pull_request.merged == true
     needs: [super-linter, markdown-link-check] 
     runs-on: ubuntu-latest
 
