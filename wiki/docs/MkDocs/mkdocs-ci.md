@@ -1,7 +1,7 @@
 # MkDocs CI
 
 To keep the documentation updated. A CI is used to validate the changes made to the wiki page. For now, GitHub Actions is used to run a CI/CD and deploy to GitHub pages. This might change in the future but the file is situated in `.github/workflows/mkdocs.yml`.
-The CI runs MkDocs when a change is merged into the main branch, this updates the gh-deploy branch with the update and is deployed to gh-pages.
+The CI runs MkDocs when a change is merged into the main branch, this updates the gh-deploy branch with the update and is deployed to gh-pages. Cool.
 
 
 
