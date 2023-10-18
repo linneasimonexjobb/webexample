@@ -1,9 +1,9 @@
-name: vue-3-ci
+name: vue-3-ci-cd
 
 on:
   push:
-    branches:
-      - "dev/**" # Push can only be done to develepment branches
+    branches-ignore:
+      - main
   pull_request:
     types:
       - closed
