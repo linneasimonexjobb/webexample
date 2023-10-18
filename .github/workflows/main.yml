@@ -1,13 +1,15 @@
-name: Vue 3 CI/CD
+name: vue-3-ci
 
 on:
   push:
     branches:
-      - main # Change this to your main branch name
-      - cicd_setup
+      - "dev/**" # Push can only be done to develepment branches
+  pull_request:
+    types:
+      - closed
 
 permissions:
-  actions: read # the workflow is read only
+  actions: read # The workflow is read only
 
 # Ensures that only one workflow per branch/environment will be run
 concurrency:
@@ -28,6 +30,15 @@ jobs:
       with:
         node-version: 18 # Change this to the desired Node.js version
 
+    # Cache dependencies for faster workflow
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+          path: ~/.npm # Can potentially create cache of /node_modules folder but could create conflicts
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+
     - name: Install dependencies
       run: npm ci
 
@@ -45,3 +56,13 @@ jobs:
       with:
         name: dist
         path: dist
+
+  if_merged:
+    needs: build
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30 #job times out after 30 mins
+    steps:
+    - name: Deploy
+      run: |
+        echo The PR was merged
