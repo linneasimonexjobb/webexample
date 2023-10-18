@@ -17,11 +17,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Lint Markdown files
         uses: github/super-linter@v5
-        with:
+        env:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          folder-path: 'wiki/'
+          FILTER_REGEX_INCLUDE: *.md
 
   markdown-link-check:
     runs-on: ubuntu-latest
