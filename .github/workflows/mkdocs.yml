@@ -11,6 +11,18 @@ permissions:
 
 jobs:
 
+  super-linter:
+    name: Lint Markdown files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Lint Markdown files
+        uses: github/super-linter@v4
+        with:
+          files: |
+           wiki/**/*.md
+
   markdown-link-check:
     runs-on: ubuntu-latest
     steps:

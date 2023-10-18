@@ -4,9 +4,9 @@ Requirements to run MkDocs:
 
 
 More source material
-MkDocs wiki: https://www.mkdocs.org/ 
+ [MkDocs wiki](https://www.mkdocs.org/) 
 
-Material for MkDoc: https://squidfunk.github.io/mkdocs-material/
+[Material for MkDoc](https://squidfunk.github.io/mkdocs-material/)
 
 ## What is MkDocs
 MkDocs is a fast and straightforward static site generator that allows users to build project documentation with ease. It is commonly used for creating user-friendly documentation for software projects, APIs, and other similar resources. MkDocs operates on simple Markdown files, enabling developers to focus on writing content without worrying about of HTML or CSS. This tool is highly customizable, offering various themes and extensions to tailor the documentation's appearance and functionality. With its user-friendly interface and seamless integration with version control systems, MkDocs is a popular choice for teams looking to create professional and accessible documentation for their projects.
