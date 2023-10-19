@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  run_project:
     runs-on: ubuntu-22.04
     timeout-minutes: 30 #job times out after 30 mins
 
@@ -41,14 +41,24 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Run Tests
-      run: npm run test:unit && npm run test:coverage # Change this to your test command
-
     - name: Lint code
       run: npm run lint # Change this to your linting command
 
     - name: Build
       run: npm run build # Change this to your build command
+
+    - name: Run Tests
+      run: | 
+          npm run test:unit
+  
+    - name: Retrieve unit test coverage
+      run: |
+          COVERAGE_VAR=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct') #This is an example with vite test coverage that looks at line coverage
+          if [[ $COVERAGE_VAR -lt 80 ]]; then  # Adjust threshold as needed
+            echo "::warning::Coverage below threshold (${COVERAGE_VAR}). Please improve test coverage." >> $GITHUB_STEP_SUMMARY  # This puts the warning in the summary. However, to this date it does not follow up in a PR.
+          else
+            echo "$COVERAGE_VAR % line coverage"
+          fi
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
