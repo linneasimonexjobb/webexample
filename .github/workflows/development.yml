@@ -47,21 +47,14 @@ jobs:
           npm run test:coverage 
 
     - name: Retrieve unit test coverage
+      env: 
+        COVERAGE_VAR: $(cat coverage/coverage-summary.json | jq '.total.lines.pct')
       run: |
-          # Replace with commands to retrieve and parse the coverage report
-          coverage=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
-          echo "Coverage: $coverage"     
-    - name: Compare coverage with threshold and notify
-      if: ${{ steps.retrieve_coverage.outputs.coverage < 80 }}  # Adjust threshold as needed
-      run: |
-        echo "Coverage below threshold. Please improve test coverage."
-        echo "$coverage"
-        # Add commands to notify users about the low coverage
-    - name: Lint code
-      run: npm run lint # Change this to your linting command
-
-    - name: Build
-      run: npm run build # Change this to your build command
+        if ${COVERAGE_VAR} < 80; then  # Adjust threshold as needed
+          echo "::warning::Coverage below threshold (${COVERAGE_VAR}). Please improve test coverage."
+        else
+          echo  "${COVERAGE_VAR}"
+        fi 
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
