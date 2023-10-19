@@ -42,8 +42,20 @@ jobs:
       run: npm ci
 
     - name: Run Tests
-      run: npm run test:unit && npm run test:coverage # Change this to your test command
+      run: | 
+          npm run test:unit
+          npm run test:coverage 
 
+    - name: Retrieve unit test coverage
+      run: |
+          # Replace with commands to retrieve and parse the coverage report
+          coverage=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+          echo "Coverage: $coverage"     
+    - name: Compare coverage with threshold and notify
+      if: ${{ steps.retrieve_coverage.outputs.coverage < 80 }}  # Adjust threshold as needed
+      run: |
+        echo "Coverage below threshold. Please improve test coverage."
+        # Add commands to notify users about the low coverage
     - name: Lint code
       run: npm run lint # Change this to your linting command
 
