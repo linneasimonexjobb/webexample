@@ -1,3 +1,4 @@
+---
 name: vue-3-ci-cd
 
 on:
@@ -21,54 +22,56 @@ jobs:
     timeout-minutes: 30 #job times out after 30 mins
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18 # Change this to the desired Node.js version
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # Change this to the desired Node.js version
 
     # Cache dependencies for faster workflow
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-          path: ~/.npm # Can potentially create cache of /node_modules folder but could create conflicts
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+            path: ~/.npm
+            key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+            restore-keys: |
+              ${{ runner.OS }}-node-
 
-    - name: Install dependencies
-      run: npm ci
-  
-    - name: Build
-      run: npm run build # Change this to your build command
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Run Tests
-      run: | 
-        npm run test:unit
-  
-    - name: Retrieve unit test coverage
-      run: |
-        npm run test:coverage
-        COVERAGE_VAR=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct') #This is an example with vite test coverage that looks at line coverage
-        if [[ $COVERAGE_VAR -lt 80 ]]; then  # Adjust threshold as needed
-          echo "::warning::Coverage below threshold (${COVERAGE_VAR}). Please improve test coverage." >> $GITHUB_STEP_SUMMARY  # This puts the warning in the summary. However, to this date it does not follow up in a PR.
-        else
-          echo "$COVERAGE_VAR % line coverage"
-        fi
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: dist
-        path: dist
+      - name: Build
+        run: npm run build # Change this to your build command
+
+      - name: Run Tests
+        run: | 
+          npm run test:unit
+
+      - name: Retrieve unit test coverage
+        run: |
+          npm run test:coverage
+          COVERAGE_VAR=$(cat coverage/coverage-summary.json | \
+          jq -r '.total.lines.pct')
+          if [[ $COVERAGE_VAR -lt 80 ]]; then  # Adjust threshold as needed
+            echo "::warning::Coverage below threshold (${COVERAGE_VAR}). \
+            Please improve test coverage." >> $GITHUB_STEP_SUMMARY 
+          else
+            echo "$COVERAGE_VAR % line coverage"
+          fi
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
