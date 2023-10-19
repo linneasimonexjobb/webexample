@@ -40,12 +40,12 @@ jobs:
             - name: Lint Code Base
               uses: super-linter/super-linter@v5
               env:
-                  VALIDATE_ALL_CODEBASE: false
-                  DEFAULT_BRANCH: main
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  FILTER_REGEX_EXCLUDE: .*wiki/.*
-                  DISABLE_ERRORS: True #Change to False if fail workflow
-                  LOG_LEVEL: WARN
+                VALIDATE_ALL_CODEBASE: false
+                DEFAULT_BRANCH: main
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                FILTER_REGEX_EXCLUDE: .*wiki/.*
+                DISABLE_ERRORS: True #Change to False if fail workflow
+                LOG_LEVEL: WARN
     
 ###  If using own linter example
 ###     - name: Lint code base 
