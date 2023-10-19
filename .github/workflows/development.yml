@@ -50,7 +50,7 @@ jobs:
       run: |
           COVERAGE_VAR=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct')
           if [[ $COVERAGE_VAR -lt 120 ]]; then  # Adjust threshold as needed
-            echo "::warning::Coverage below threshold (${COVERAGE_VAR}). Please improve test coverage."
+            echo "::warning::Coverage below threshold (${COVERAGE_VAR}). Please improve test coverage." >> $GITHUB_STEP_SUMMARY
           else
             echo "$COVERAGE_VAR % line coverage"
           fi
