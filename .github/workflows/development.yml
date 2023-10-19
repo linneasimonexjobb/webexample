@@ -53,6 +53,7 @@ jobs:
   
     - name: Retrieve unit test coverage
       run: |
+        npm run test:coverage
         COVERAGE_VAR=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct') #This is an example with vite test coverage that looks at line coverage
         if [[ $COVERAGE_VAR -lt 80 ]]; then  # Adjust threshold as needed
           echo "::warning::Coverage below threshold (${COVERAGE_VAR}). Please improve test coverage." >> $GITHUB_STEP_SUMMARY  # This puts the warning in the summary. However, to this date it does not follow up in a PR.
