@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 30 #job times out after 30 mins
     steps:
-    - name: Deploy
-      run: |
-        echo The PR was merged
+      - name: Deploy
+        run: |
+          echo The PR was merged

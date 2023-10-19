@@ -18,9 +18,9 @@ jobs:
         # Grant status permission for MULTI_STATUS #
         ############################################
         permissions:
-          contents: read
-          packages: read
-          statuses: write
+            contents: read
+            packages: read
+            statuses: write
         ##################
         # Load all steps #
         ##################
@@ -31,21 +31,20 @@ jobs:
           - name: Checkout Code
             uses: actions/checkout@v4
             with:
-              # Full git history is needed to get a proper
-              # list of changed files within `super-linter`
-              fetch-depth: 0
-          ################################
-          # Run Linter against code base #
-          ################################
+                # Full git history is needed to get a proper
+                # list of changed files within `super-linter`
+                fetch-depth: 0
+            ################################
+            # Run Linter against code base #
+            ################################
           - name: Lint Code Base
             uses: super-linter/super-linter@v5
             env:
-              VALIDATE_ALL_CODEBASE: false
-              DEFAULT_BRANCH: main
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              FILTER_REGEX_EXCLUDE: .*wiki/.*
+                VALIDATE_ALL_CODEBASE: false
+                DEFAULT_BRANCH: main
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                FILTER_REGEX_EXCLUDE: .*wiki/.*
     
-
 ###  If using own linter example
 ###     - name: Lint code base 
 ###       run: npm run lint
