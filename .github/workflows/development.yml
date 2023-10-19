@@ -55,6 +55,7 @@ jobs:
       if: ${{ steps.retrieve_coverage.outputs.coverage < 80 }}  # Adjust threshold as needed
       run: |
         echo "Coverage below threshold. Please improve test coverage."
+        echo "$coverage"
         # Add commands to notify users about the low coverage
     - name: Lint code
       run: npm run lint # Change this to your linting command
