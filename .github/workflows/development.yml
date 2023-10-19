@@ -52,8 +52,7 @@ jobs:
       - name: Retrieve unit test coverage
         run: |
           npm run test:coverage
-          COVERAGE_VAR=$(cat coverage/coverage-summary.json | \
-          jq -r '.total.lines.pct')
+          COVERAGE_VAR=$(cat coverage/coverage-summary.json |  jq -r '.total.lines.pct')
           if [[ $COVERAGE_VAR -lt 80 ]]; then  # Adjust threshold as needed
             echo "::warning::Coverage below threshold (${COVERAGE_VAR}). \
             Please improve test coverage." >> $GITHUB_STEP_SUMMARY 
