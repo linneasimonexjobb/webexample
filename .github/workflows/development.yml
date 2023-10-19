@@ -47,14 +47,13 @@ jobs:
           npm run test:coverage 
 
     - name: Retrieve unit test coverage
-      env: 
-        COVERAGE_VAR: $(cat coverage/coverage-summary.json | jq '.total.lines.pct')
       run: |
-        if ${COVERAGE_VAR} < 80; then  # Adjust threshold as needed
-          echo "::warning::Coverage below threshold (${COVERAGE_VAR}). Please improve test coverage."
-        else
-          echo  "${COVERAGE_VAR}"
-        fi 
+          COVERAGE_VAR=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct')
+          if [[ $COVERAGE_VAR -lt 80 ]]; then  # Adjust threshold as needed
+            echo "::warning::Coverage below threshold (${COVERAGE_VAR}). Please improve test coverage."
+          else
+            echo $COVERAGE_VAR
+          fi
 
     - name: Archive artifacts
       uses: actions/upload-artifact@v3
