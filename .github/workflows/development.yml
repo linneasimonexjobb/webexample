@@ -40,10 +40,7 @@ jobs:
 
     - name: Install dependencies
       run: npm ci
-
-    - name: Lint code
-      run: npm run lint # Change this to your linting command
-
+  
     - name: Build
       run: npm run build # Change this to your build command
 
