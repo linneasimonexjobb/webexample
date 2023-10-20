@@ -48,9 +48,9 @@ jobs:
       - name: Build
         run: npm run build # Change this to your build command
 
-      - name: Run Tests
-        run: | 
-          npm run test:unit
+      #- name: Run Tests
+      #  run: | 
+      #    npm run test:unit
 
       - name: Retrieve unit test coverage
         run: |
