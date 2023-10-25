@@ -19,11 +19,3 @@ jobs:
               repo: context.repo.repo,
               labels: ["need-label"]
             })
-
-  comment:
-    runs-on: ubuntu-latest
-    steps:
-      - run: gh issue comment $ISSUE --body "Thank you for opening this issue!"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE: ${{ github.event.issue.html_url }}
