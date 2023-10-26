@@ -3,18 +3,22 @@ on:
   pull_request:
     types:
       - closed
-  
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
   # have to get artifact or run deployment workflow again
 jobs: 
   
   if_merged:
-    permissions:
-      contents: read
-      packages: write
+    
     if: github.event.pull_request.merged == true
     name: Build and create a docker image
     runs-on: ubuntu-22.04
     timeout-minutes: 30 #job times out after 30 mins
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
