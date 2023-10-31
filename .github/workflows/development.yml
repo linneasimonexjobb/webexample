@@ -7,6 +7,7 @@ on:
       - main
     paths-ignore:
       - 'wiki/**'
+  pull_request:
 
 permissions:
   contents: read # The workflow is read only
@@ -63,6 +64,11 @@ jobs:
             echo "$COVERAGE_VAR % line coverage"
           fi
 
+  if_merged:
+    if: github.event.pull_request.merged == true
+    name: Run E2E tests
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30 #job times out after 30 mins 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
