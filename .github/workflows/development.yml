@@ -68,7 +68,9 @@ jobs:
     if: github.event.pull_request.merged == true
     name: Run E2E tests
     runs-on: ubuntu-22.04
+    needs: run_project
     timeout-minutes: 30 #job times out after 30 mins 
+    steps:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
