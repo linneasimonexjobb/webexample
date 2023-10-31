@@ -65,7 +65,7 @@ jobs:
           fi
 
   if_merged:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request == true
     name: Run E2E tests
     runs-on: ubuntu-22.04
     needs: run_project
