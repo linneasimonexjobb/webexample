@@ -71,6 +71,9 @@ jobs:
     needs: run_project
     timeout-minutes: 30 #job times out after 30 mins 
     steps:
+      - name: Install dependencies
+        run: npm ci
+        
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
