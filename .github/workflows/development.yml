@@ -93,6 +93,9 @@ jobs:
           npm install -D @playwright/test@latest
           npm ci
 
+      - name: Build
+        run: npm run build # Change this to your build command
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
