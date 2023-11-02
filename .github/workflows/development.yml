@@ -69,7 +69,6 @@ jobs:
     if: github.event_name == 'pull_request'
     name: Run E2E tests
     runs-on: ubuntu-22.04
-    needs: run_project
     timeout-minutes: 30 #job times out after 30 mins
     steps:
       - name: Checkout code
@@ -90,12 +89,12 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright Browsers
         run: |
           npm install -D @playwright/test@latest
-          npx playwright install --with-deps
+          npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test
