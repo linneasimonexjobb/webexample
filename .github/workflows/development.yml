@@ -20,6 +20,7 @@ concurrency:
 jobs:
   run_project:
     runs-on: ubuntu-22.04
+    name: Build, Lint, Unit-test project
     timeout-minutes: 30 #job times out after 30 mins
 
     steps:
