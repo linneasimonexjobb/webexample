@@ -14,10 +14,10 @@ permissions:
 
 # Ensures that only one workflow per branch/environment will be run
 concurrency:
-  group: ${{ github.head_ref || github.ref_name }} 
+  group: ${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
-jobs:      
+jobs:
   run_project:
     runs-on: ubuntu-22.04
     timeout-minutes: 30 #job times out after 30 mins
@@ -45,12 +45,12 @@ jobs:
 
       - name: Linting
         run: npm run lint
-  
+
       - name: Build
         run: npm run build # Change this to your build command
 
       - name: Run Tests
-        run: | 
+        run: |
           npm run test:unit
 
       - name: Retrieve unit test coverage
@@ -59,21 +59,38 @@ jobs:
           COVERAGE_VAR=$(jq -r '.total.lines.pct' < coverage/coverage-summary.json)
           if [[ $COVERAGE_VAR -lt 80 ]]; then  # Adjust threshold as needed
             echo "::warning::Coverage below threshold (${COVERAGE_VAR}). \
-            Please improve test coverage." >> $GITHUB_STEP_SUMMARY 
+            Please improve test coverage." >> $GITHUB_STEP_SUMMARY
           else
             echo "$COVERAGE_VAR % line coverage"
           fi
 
-  if_merged:
+  e2e:
     if: github.event_name == 'pull_request'
     name: Run E2E tests
     runs-on: ubuntu-22.04
     needs: run_project
-    timeout-minutes: 30 #job times out after 30 mins 
+    timeout-minutes: 30 #job times out after 30 mins
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 #Change this to the desired Node.js version
+
+    #Cache dependencies for faster workflow
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
@@ -86,9 +103,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-          
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist
