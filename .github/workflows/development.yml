@@ -46,7 +46,7 @@ jobs:
         run: npm run lint
 
       - name: Build
-        run: npm run build # Change this to your build command
+        run: npm run build #Change this to your build command
 
       - name: Run Tests
         run: |
