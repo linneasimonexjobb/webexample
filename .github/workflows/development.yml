@@ -7,6 +7,7 @@ on:
       - main
     paths-ignore:
       - 'wiki/**'
+  pull_request:
 
 permissions:
   contents: read # The workflow is read only
@@ -19,6 +20,7 @@ concurrency:
 jobs:
   run_project:
     runs-on: ubuntu-22.04
+    name: Build, Lint, Unit-test project
     timeout-minutes: 30 #job times out after 30 mins
 
     steps:
@@ -62,6 +64,37 @@ jobs:
           else
             echo "$COVERAGE_VAR % line coverage"
           fi
+
+  e2e:
+    if: github.event_name == 'pull_request'
+    name: Run E2E tests
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30 #job times out after 30 mins
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 #Change this to the desired Node.js version
+
+    #Cache dependencies for faster workflow
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+
+      - name: Install dependencies
+        run: |
+          npm install -D @playwright/test@latest
+          npm ci
+
+      - name: Build
+        run: npm run build # Change this to your build command
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
